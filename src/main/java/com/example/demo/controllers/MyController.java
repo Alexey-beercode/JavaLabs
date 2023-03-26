@@ -1,6 +1,7 @@
 package com.example.demo.controllers;
 
 import com.example.demo.cache.Cache;
+import com.example.demo.counter.Counter;
 import com.example.demo.counter.CounterThread;
 import com.example.demo.exception.IllegalArgumetsException;
 import com.example.demo.model.NumberModel;
@@ -45,6 +46,6 @@ public class MyController {
         cache.push(number,result);
 
         JSONObject jsonObject = new JSONObject();
-        return  jsonObject.put("result:", result).toString();
+        return  jsonObject.put("result:"+ Counter.getCounter(), result).toString();
     }
 }
