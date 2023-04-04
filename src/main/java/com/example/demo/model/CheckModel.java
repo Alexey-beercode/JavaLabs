@@ -1,6 +1,6 @@
 package com.example.demo.model;
 
-import com.example.demo.controllers.MyController;
+import com.example.demo.controllers.NumberController;
 import com.example.demo.exception.IllegalArgumetsException;
 import org.springframework.stereotype.Component;
 
@@ -9,27 +9,16 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
 @Component
-public class NumberModel {
-    private int number;
+public class CheckModel {
+
+    private static Logger LOGGER = LogManager.getLogger(NumberController.class);
 
 
-    public int getNumber() {
-        return number;
-    }
+    static public String checkNumber(int number) throws IllegalArgumetsException {
 
-    public void setNumber(int number) {
-        this.number = number;
-    }
-
-    public void  isNegativeNumber() throws IllegalArgumetsException {
+        LOGGER.info("number checking");
         if(number<0)
             throw new IllegalArgumetsException("Negative number");
-    }
-
-
-    public String checkNumber() {
-        Logger logger = LogManager.getLogger(MyController.class);
-        logger.info("number checking");
         if(number==1)
             return "Не простое и не четное";
         BigInteger bigInteger = BigInteger.valueOf(number);

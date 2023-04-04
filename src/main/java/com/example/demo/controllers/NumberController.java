@@ -4,7 +4,7 @@ import com.example.demo.cache.Cache;
 import com.example.demo.counter.Counter;
 import com.example.demo.counter.CounterThread;
 import com.example.demo.exception.IllegalArgumetsException;
-import com.example.demo.model.NumberModel;
+import com.example.demo.model.CheckModel;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,16 +15,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class MyController {
-    private static final Logger logger = LogManager.getLogger(MyController.class);
+public class NumberController {
+    private static final Logger LOGGER = LogManager.getLogger(NumberController.class);
     private final Cache<Integer,String> cache;
-    private final NumberModel numberModel;
     private final CounterThread counterThread;
 
     @Autowired
-    public MyController(Cache<Integer,String> cache, NumberModel numberModel, CounterThread counterThread){
+    public NumberController(Cache<Integer,String> cache, CounterThread counterThread){
         this.cache = cache;
-        this.numberModel = numberModel;
         this.counterThread = counterThread;
     }
 
@@ -32,20 +30,17 @@ public class MyController {
     public String checkNumber(@RequestParam("number") int number) throws IllegalArgumetsException, JSONException {
         counterThread.run();
         String result ;
-        numberModel.setNumber(number);
-        numberModel.isNegativeNumber();
 
         if(!cache.contains(number)){
-            result = numberModel.checkNumber();
+            result = CheckModel.checkNumber(number);
+            cache.push(number,result);
         }else{
-            logger.info("get");
+            LOGGER.info("get");
             result = cache.get(number);
         }
 
-
-        cache.push(number,result);
-
-        JSONObject jsonObject = new JSONObject();
-        return  jsonObject.put("result:"+ Counter.getCounter(), result).toString();
+        return "result\t"+Counter.getCounter()+result.toString();
+        //JSONObject jsonObject = new JSONObject();
+        //return  jsonObject.put("result:"+ Counter.getCounter(), result).toString();
     }
 }
