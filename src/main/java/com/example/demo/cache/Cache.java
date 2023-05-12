@@ -10,7 +10,7 @@ import java.util.Map;
 @Component
 public class Cache<K,V> {
 
-    Logger LOGGER = LogManager.getLogger(Cache.class);
+    Logger logger = LogManager.getLogger(Cache.class);
     private Map<K,V> cache = new HashMap<K,V>();
 
     public boolean contains(K key){
@@ -19,7 +19,7 @@ public class Cache<K,V> {
 
     public void push(K key,V value){
         if(!cache.containsKey(key)) {
-            LOGGER.info("push");
+            logger.info("push result to cache");
             cache.put(key, value);
         }
     }
