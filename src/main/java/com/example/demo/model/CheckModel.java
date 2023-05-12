@@ -11,12 +11,12 @@ import org.apache.logging.log4j.LogManager;
 @Component
 public class CheckModel {
 
-    private static Logger LOGGER = LogManager.getLogger(NumberController.class);
+    private static Logger logger = LogManager.getLogger(NumberController.class);
 
 
     static public String checkNumber(int number) throws IllegalArgumetsException {
 
-        LOGGER.info("number checking");
+        logger.info("number checking");
         if(number<0)
             throw new IllegalArgumetsException("Negative number");
         if(number==1)
