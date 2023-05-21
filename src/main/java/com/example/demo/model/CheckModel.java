@@ -3,18 +3,17 @@ package com.example.demo.model;
 import com.example.demo.controllers.NumberController;
 import com.example.demo.exception.IllegalArgumetsException;
 import org.springframework.stereotype.Component;
-
 import java.math.BigInteger;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
-@Component
+
 public class CheckModel {
 
     private static Logger logger = LogManager.getLogger(NumberController.class);
 
 
-    static public String checkNumber(int number) throws IllegalArgumetsException {
+     public static String checkNumber(int number) throws IllegalArgumetsException {
 
         logger.info("number checking");
         if(number<0)
