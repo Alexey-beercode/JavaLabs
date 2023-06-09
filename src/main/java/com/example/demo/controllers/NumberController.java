@@ -42,7 +42,7 @@ public class NumberController {
 
     @GetMapping("/checkNumber")
     public ResponseEntity<?> checkNumber(@RequestParam("number") int number,
-                                         @ModelAttribute("numberModel")NumberModel numberModel) throws IllegalArgumetsException{
+                                         @ModelAttribute("numberModel")NumberModel numberModel) throws IllegalArgumetsException, InterruptedException {
         counterThread.run();
         String result ;
         if(!cache.contains(number)){
@@ -72,7 +72,7 @@ public class NumberController {
         List<String> responseList = listOfNumbers.stream().map(x->{
             try {
                 return CheckModel.checkNumber(x);
-            } catch (IllegalArgumetsException e) {
+            } catch (IllegalArgumetsException | InterruptedException e) {
                 throw new RuntimeException(e);
             }
         }).toList();
@@ -86,7 +86,7 @@ public class NumberController {
     }
 
     @PostMapping("/async")
-    public Integer method(@RequestBody NumberModel numberModel) throws IllegalArgumetsException {
+    public Integer method(@RequestBody NumberModel numberModel){
         int id = numberAsync.createAsync(numberModel);
 
         numberAsync.computeAsync(id);

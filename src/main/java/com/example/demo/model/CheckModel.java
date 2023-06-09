@@ -13,8 +13,8 @@ public class CheckModel {
     private static Logger logger = LogManager.getLogger(NumberController.class);
 
 
-     public static String checkNumber(int number) throws IllegalArgumetsException {
-
+     public static String checkNumber(int number) throws IllegalArgumetsException, InterruptedException {
+         Thread.sleep(15000);
         logger.info("number checking");
         if(number<0)
             throw new IllegalArgumetsException("Negative number");
